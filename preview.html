@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff1f2, #ffe4e9, #fff5f0);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #754b55;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.subtitle {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: #bc8292;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(48px, 8vw, 75px);
+    font-weight: normal;
+    color: #b85c77;
+}
+
+.instruction {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #a77a85;
+}
+
+/* ENVELOPE */
+
+.envelope-wrapper {
+    width: 300px;
+    height: 210px;
+    margin: 100px auto 35px;
+    perspective: 1000px;
+}
+
+.envelope {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    background: #e8a6b5;
+    border-radius: 5px;
+}
+
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    background: #f3bdc8;
+    clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+    z-index: 4;
+    border-radius: 5px;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #d98fa3;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    transform-origin: top;
+    transition: transform 0.9s ease;
+    z-index: 5;
+}
+
+.seal {
+    position: absolute;
+    top: 76px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42px;
+    height: 42px;
+    background: #b94f70;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    z-index: 6;
+    transition: opacity 0.4s;
+    box-shadow: 0 3px 8px #a34f6540;
+}
+
+/* LETTER */
+
+.letter {
+    position: absolute;
+    width: 88%;
+    height: 90%;
+    left: 6%;
+    bottom: 5%;
+    background: #fffdf7;
+    border-radius: 4px;
+    z-index: 2;
+    overflow: hidden;
+    transition: transform 1s ease, height 0.8s ease;
+    box-shadow: 0 3px 15px #8b536022;
+}
+
+.letter-content {
+    padding: 22px;
+    text-align: left;
+}
+
+.letter-content h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 28px;
+    color: #b85c77;
+    margin-bottom: 15px;
+}
+
+.letter-content p {
+    font-size: 10px;
+    line-height: 1.9;
+    margin-bottom: 12px;
+    color: #795963;
+}
+
+.letter-content .closing {
+    font-family: 'Great Vibes', cursive;
+    font-size: 22px;
+    color: #b85c77;
+}
+
+.small-heart {
+    text-align: center;
+    color: #c76b85;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+/* BUTTON */
+
+#openButton {
+    border: none;
+    background: #b85c77;
+    color: white;
+    padding: 13px 28px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px #b85c7730;
+}
+
+#openButton:hover {
+    background: #99435e;
+    transform: translateY(-3px);
+}
+
+.footer {
+    font-size: 10px;
+    color: #bd8d99;
+    margin-top: 35px;
+}
+
+/* OPEN ENVELOPE ANIMATION */
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .seal {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.envelope.open .letter {
+    transform: translateY(-145px);
+    z-index: 3;
+}
+
+/* REVEAL LETTER */
+
+.envelope.open .letter.read {
+    transform: translateY(-190px) scale(1.12);
+    height: 370px;
+    overflow-y: auto;
+    z-index: 7;
+}
+
+/* FLOATING HEARTS */
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    color: #e69aaa;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 450px) {
+    .envelope-wrapper {
+        width: 270px;
+        height: 190px;
+    }
+
+    .envelope.open .letter {
+        transform: translateY(-130px);
+    }
+
+    .envelope.open .letter.read {
+        transform: translateY(-175px) scale(1.05);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<main class="container">
+
+    <p class="subtitle">A LITTLE SOMETHING FOR YOU</p>
+
+    <h1>For My Love ❤️</h1>
+
+    <p class="instruction" id="instruction">
+        Someone far away is thinking of you...
+    </p>
+
+    <!-- ENVELOPE -->
+    <div class="envelope-wrapper">
+
+        <div class="envelope" id="envelope">
+
+            <div class="envelope-back"></div>
+
+            <!-- LETTER -->
+            <div class="letter" id="letter">
+
+                <div class="letter-content">
+
+                    <h2>My Dearest Love,</h2>
+
+                    <p>
+                        Even though miles separate us,
+                        you are never far from my heart.
+                        Every day, I wish I could be there
+                        beside you, sharing little moments
+                        and making beautiful memories.
+                    </p>
+
+                    <p>
+                        Sometimes I wish I could simply
+                        cross the distance and hold your hand,
+                        look into your eyes, and remind you
+                        how special you are to me.
+                    </p>
+
+                    <p>
+                        Distance may keep us apart physically,
+                        but it will never change how much
+                        you mean to me.
+                    </p>
+
+                    <p>
+                        I hope this little letter reminds you
+                        that no matter how far away we are,
+                        you always have a special place
+                        in my heart.
+                    </p>
+
+                    <p>
+                        Until the day we meet again,
+                        take care of yourself and remember
+                        that someone is always thinking of you.
+                    </p>
+
+                    <p class="closing">
+                        With all my love,<br>
+                        Yours always ❤️
+                    </p>
+
+                    <div class="small-heart">♥</div>
+
+                </div>
+
+            </div>
+
+            <div class="envelope-front"></div>
+
+            <div class="envelope-flap"></div>
+
+            <div class="seal">♥</div>
+
+        </div>
+
+    </div>
+
+    <button id="openButton">
+        Open My Letter 💌
+    </button>
+
+    <p class="footer">
+        Made with love, just for you.
+    </p>
+
+</main>
+
+<script>
+
+// ENVELOPE INTERACTION
+
+const envelope = document.getElementById("envelope");
+const button = document.getElementById("openButton");
+const instruction = document.getElementById("instruction");
+const letter = document.getElementById("letter");
+
+let opened = false;
+let revealed = false;
+
+button.addEventListener("click", () => {
+
+    if (!opened) {
+
+        envelope.classList.add("open");
+
+        instruction.textContent =
+            "A little message from my heart...";
+
+        button.textContent = "Read My Letter ❤️";
+
+        opened = true;
+
+    } else if (!revealed) {
+
+        letter.classList.add("read");
+
+        instruction.textContent =
+            "Every word is meant for you ❤️";
+
+        button.textContent = "Sending You Love 💗";
+
+        revealed = true;
+
+    } else {
+
+        instruction.textContent =
+            "Distance means so little when someone means so much.";
+
+        button.textContent = "Forever in My Heart ❤️";
+
+    }
+
+});
+
+
+// FLOATING HEARTS ANIMATION
+
+const heartsContainer = document.getElementById("hearts");
+
+function createHeart() {
+
+    const heart = document.createElement("span");
+
+    heart.className = "heart";
+
+    heart.innerHTML =
+        Math.random() > 0.5 ? "♥" : "♡";
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (12 + Math.random() * 18) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 6) + "s";
+
+    heartsContainer.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 11000);
+
+}
+
+setInterval(createHeart, 700);
+
+</script>
+
+</body>
+</html>
